@@ -51,8 +51,9 @@ public class PlayerHook
   public void
   changeFile (String filename)
   {
-    controller.communicate (JopsProtocol.COMMAND_CHANGE_FILE + JopsProtocol.DELIMITER 
-                            + getPlayerName () + JopsProtocol.DELIMITER + filename);
+    controller.doCommand (JopsProtocol.COMMAND_CHANGE_FILE,
+                          getPlayerName (),
+                          filename);
   }
 
   
@@ -63,19 +64,19 @@ public class PlayerHook
   public void
   dropPlayer ()
   {
-    // TODO Auto-generated method stub
-    controller.communicate (JopsProtocol.COMMAND_DELETE_PLAYER + JopsProtocol.DELIMITER
-                            + getPlayerName ());
+    controller.doCommand (JopsProtocol.COMMAND_DELETE_PLAYER,
+                          getPlayerName ());
   }
 
   
   /**
    * @return the playerName
    */
+  
   public String
   getPlayerName ()
   {
-      return playerName;
+    return playerName;
   }
 
 
@@ -87,8 +88,8 @@ public class PlayerHook
   public String
   getPlayerOutput ()
   {
-    return controller.communicate (JopsProtocol.COMMAND_GET_PLAYER_OUTPUT + JopsProtocol.DELIMITER
-                                   + getPlayerName ());
+    return controller.doCommand (JopsProtocol.COMMAND_GET_PLAYER_OUTPUT,
+                                 getPlayerName ());
   }
 
   
@@ -96,12 +97,11 @@ public class PlayerHook
    * @return  the type string of the Player.
    */
   
-  
   public String
   getPlayerType ()
   {
-    return controller.communicate (JopsProtocol.COMMAND_GET_PLAYER_TYPE + JopsProtocol.DELIMITER
-                                   + getPlayerName ());
+    return controller.doCommand (JopsProtocol.COMMAND_GET_PLAYER_TYPE,
+                                 getPlayerName ());
   }
 
   
@@ -113,8 +113,9 @@ public class PlayerHook
   public void
   setPaused (boolean isPaused)
   {
-    controller.communicate (JopsProtocol.COMMAND_SETPAUSED + JopsProtocol.DELIMITER 
-                            + getPlayerName () + JopsProtocol.DELIMITER + (isPaused ? "T" : "F"));
+    controller.doCommand (JopsProtocol.COMMAND_SETPAUSED,
+                          getPlayerName (),
+                          (isPaused ? JopsProtocol.TRUE : JopsProtocol.FALSE));
     
   }
 
@@ -122,10 +123,11 @@ public class PlayerHook
   /**
    * @param playerName the playerName to set
    */
+  
   public void
   setPlayerName (String playerName)
   {
-      this.playerName = playerName;
+    this.playerName = playerName;
   }
 
   
@@ -136,7 +138,7 @@ public class PlayerHook
   public void
   start ()
   {
-    controller.communicate (JopsProtocol.COMMAND_START + JopsProtocol.DELIMITER + getPlayerName ());
+    controller.doCommand (JopsProtocol.COMMAND_START, getPlayerName ());
   }
 
   
@@ -147,7 +149,6 @@ public class PlayerHook
   public void
   stop ()
   {
-    controller.communicate (JopsProtocol.COMMAND_STOP + JopsProtocol.DELIMITER + getPlayerName ());
+    controller.doCommand (JopsProtocol.COMMAND_STOP, getPlayerName ());
   }
-
 }

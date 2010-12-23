@@ -65,6 +65,7 @@ JopsClient
   private PrintWriter out;
   
   private BufferedReader in;
+  private JopsProtocol jp;
   
   
   /**
@@ -75,6 +76,7 @@ JopsClient
   JopsClient ()
   {
     mixers = null;
+    jp = new JopsProtocol ();
     ui = new UserInterface (this);
   }
   
@@ -86,15 +88,30 @@ JopsClient
   public void
   acquireMixers ()
   {
-    communicate (JopsProtocol.COMMAND_ACQUIRE_MIXERS);
+    communicate (jp.assembleCommand (JopsProtocol.COMMAND_LIST_OUTPUTS));
   }
 
   
   public void
   addPlayer (String type, int selectedIndex)
   {
-    communicate (JopsProtocol.COMMAND_CREATE_PLAYER + JopsProtocol.DELIMITER
-                 + type + JopsProtocol.DELIMITER + selectedIndex);
+    doCommand (JopsProtocol.COMMAND_CREATE_PLAYER, type,
+               Integer.toString (selectedIndex));
+  }
+  
+
+  /**
+   * Send a command to the server, and act on its result.
+   * 
+   * @param command  The command word (one of the constants in JopsProtocol)
+   * @param arguments  The arguments for the command.
+   * @return  The command response.
+   */
+  
+  public String
+  doCommand (String command, String... arguments)
+  {
+    return communicate (jp.assembleCommand (command, arguments));
   }
   
   
@@ -109,7 +126,7 @@ JopsClient
    *          side-effects not evident from the return value.
    */
   
-  public String
+  private String
   communicate (String cin)
   {
     // No server

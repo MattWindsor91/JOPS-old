@@ -33,7 +33,7 @@ public class SongManager
         conn = DriverManager.getConnection(
             "jdbc:postgresql:jops",
             "jops",
-            "Dz92Fp64" );
+            "Dz92Fp64");
         
         Statement st = conn.createStatement ();
         st.setFetchSize (50);

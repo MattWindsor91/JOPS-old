@@ -6,6 +6,9 @@ Java skills and also to explore/demonstrate the usability of Java to
 replace the current system at University Radio York, and will still be 
 developed at least up until an actual replacement project is started.
 
+Given the arisal of a replacement concept using MPD, it is likely that a 
+lot of JOPS's playback code will become completely unnecessary soon.
+
 JOPS is, at time of writing, incomplete, with the following issues:
 
 1) The protocol was written from scratch, making it completely 
@@ -20,6 +23,8 @@ considered for the future.
 
 4) Some of the player controls (notably, edit player) do not work.
 
+5) Some other various oddities and gotchas.
+
 ---
 
 USAGE
@@ -33,6 +38,14 @@ You will need the following libraries in classpath:
 - postgresql-9.0-801.jdbc4.jar
 
 Newer versions might work.
+
+In addition, JOPS retrieves song lists from a PostgreSQL database on the 
+CLIENT side (this will change!).  You will need a PostgreSQL database 
+called jops with a user with the username and password given in 
+src/jops/song/SongManager.java, and the demo query in that same class 
+should give you an idea of what to place in the database.  Future 
+development versions will likely include debug code to bypass the 
+database requirement.
 
 JOPS has been coded in Eclipse, and thus should work nicely as an 
 Eclipse project.
